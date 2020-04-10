@@ -15,6 +15,7 @@ const ContactSelection = () => {
   const [input, setInput] = useState('');
   const [listExceedsHeight, setListExceedsHeight] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  let index = -1;
 
   const inputElem = useRef(null);
   const listElem = useRef(null);
@@ -42,41 +43,48 @@ const ContactSelection = () => {
   }, [input]);
 
   const keyHandler = event => {
-    console.log(event.key);
     switch (event.key.toLowerCase()) {
       case 'escape':
         inputElem.current.blur();
         break;
       case 'arrowdown':
-        listElem.current.children[selectedIndex].style.background = '#f7f7f7';
-        listElem.current.children[selectedIndex].style.color = '#4a4a4a';
-        listElem.current.children[selectedIndex].focus();
-        if (selectedIndex > 0) {
-          listElem.current.children[selectedIndex - 1].style.background = '';
-          listElem.current.children[selectedIndex - 1].style.color = '';
+        if (index >= currentNames.length - 1) {
+          index = -1;
+          listElem.current.children[currentNames.length - 1].style.background =
+            '';
+          listElem.current.children[currentNames.length - 1].style.color = '';
         }
-        console.log(selectedIndex);
-        setSelectedIndex(prevState => prevState + 1);
-        console.log(selectedIndex);
+
+        index++;
+
+        listElem.current.children[index].style.background = '#f7f7f7';
+        listElem.current.children[index].style.color = '#4a4a4a';
+
+        if (index > 0) {
+          listElem.current.children[index - 1].style.background = '';
+          listElem.current.children[index - 1].style.color = '';
+        }
         break;
       case 'arrowup':
-        if (selectedIndex === 0) {
-          setSelectedIndex(currentNames.length - 2);
+        if (index === 0) {
+          index = currentNames.length - 1;
+          listElem.current.children[0].style.background = '';
+          listElem.current.children[0].style.color = '';
         } else {
-          setSelectedIndex(prevState => prevState - 1);
+          index = index - 1;
         }
-        console.log(selectedIndex);
+        listElem.current.children[index].style.background = '#f7f7f7';
+        listElem.current.children[index].style.color = '#4a4a4a';
 
-        listElem.current.children[selectedIndex].style.background = '#f7f7f7';
-        listElem.current.children[selectedIndex].style.color = '#4a4a4a';
-
-        if (selectedIndex < currentNames.length - 1) {
-          listElem.current.children[selectedIndex + 1].style.background = '';
-          listElem.current.children[selectedIndex + 1].style.color = '';
+        if (index < currentNames.length - 1) {
+          listElem.current.children[index + 1].style.background = '';
+          listElem.current.children[index + 1].style.color = '';
         }
-
-        console.log(selectedIndex);
-
+        break;
+      case 'enter':
+        const selectedName = listElem.current.children[index].innerText;
+        setInput(selectedName);
+        inputElem.current.blur();
         break;
       default:
         break;
