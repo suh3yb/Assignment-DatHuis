@@ -11,10 +11,6 @@ const App = () => {
       <ContactSelection />
       <ContactSelection />
       <ContactSelection />
-      <ContactSelection />
-      <ContactSelection />
-      <ContactSelection />
-      <ContactSelection />
     </>
   );
 };
