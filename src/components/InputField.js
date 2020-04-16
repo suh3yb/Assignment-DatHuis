@@ -5,11 +5,12 @@ import searchIcon from '../assets/research.png';
 import arrowIcon from '../assets/down-arrow.png';
 
 const Container = styled.div`
-  width: ${props => props.theme.sizes.inputWidth};
-  height: ${props => props.theme.sizes.inputHeight};
-  color: ${props => props.theme.appearance.color};
+  width: 365px;
+  height: 65px;
+  color: #798697;
   position: relative;
-  margin: ${props => props.theme.sizes.inputMargin};
+  margin-top: 30px;
+  margin-bottom: 5px;
 `;
 
 const Input = styled.input.attrs(props => ({
@@ -17,22 +18,22 @@ const Input = styled.input.attrs(props => ({
   type: 'text',
 }))`
   box-sizing: border-box;
-  border: ${props => props.theme.appearance.border};
-  border-radius: ${props => props.theme.appearance.borderRadius};
-  width: ${props => props.theme.sizes.inputWidth};
-  height: ${props => props.theme.sizes.inputHeight};
-  font-size: ${props => props.theme.font.size};
+  border: 1px solid #bfc5cd;
+  border-radius: 5px;
+  width: 365px;
+  height: 65px;
+  font-size: 1.4rem;
   padding: 0 ${props => (props.focused ? '50px' : '20px')};
-  transition: ${props => props.theme.appearance.transition};
+  transition: all 0.3s cubic-bezier(0, 0, 0.6, 0.88);
 
   &:hover {
-    border: ${props => props.theme.appearance.borderOnHover};
+    border-color: #4a4a4a;
   }
 
   &:focus {
     outline: none;
     outline-offset: 0;
-    border: ${props => props.theme.appearance.borderOnHover};
+    border-color: #4a4a4a;
   }
 `;
 
@@ -40,10 +41,9 @@ const Placeholder = styled.span`
   position: absolute;
   top: ${props => (props.input || props.focused ? '-20px' : '20px')};
   left: ${props => (props.input || props.focused ? '5px' : '30px')};
-  font-family: ${props => props.theme.font.family};
-  font-size: ${props =>
-    props.input || props.focused ? '1rem' : props.theme.font.size};
-  transition: ${props => props.theme.appearance.transition};
+  font-family: sans-serif;
+  font-size: ${props => (props.input || props.focused ? '1rem' : '1.4rem')};
+  transition: all 0.3s cubic-bezier(0, 0, 0.6, 0.88);
 `;
 
 const SearchIcon = styled.img.attrs(props => ({
@@ -82,6 +82,7 @@ const InputField = React.forwardRef(
           ref={inputElem}
           value={input}
           onFocus={() => setInputFocused(true)}
+          onClick={() => setInputFocused(true)}
           // setTimeout to make the list disappear after setting the input
           onBlur={() => setTimeout(() => setInputFocused(false), 100)}
           focused={inputFocused}

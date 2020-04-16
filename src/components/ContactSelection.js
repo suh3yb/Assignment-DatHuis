@@ -14,8 +14,7 @@ const ContactSelection = () => {
   const [inputFocused, setInputFocused] = useState(false);
   const [input, setInput] = useState('');
   const [listExceedsHeight, setListExceedsHeight] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  let index = -1;
+  let selectedIndex = -1;
 
   const inputElem = useRef(null);
   const listElem = useRef(null);
@@ -48,41 +47,41 @@ const ContactSelection = () => {
         inputElem.current.blur();
         break;
       case 'arrowdown':
-        if (index >= currentNames.length - 1) {
-          index = -1;
+        if (selectedIndex >= currentNames.length - 1) {
+          selectedIndex = -1;
           listElem.current.children[currentNames.length - 1].style.background =
             '';
           listElem.current.children[currentNames.length - 1].style.color = '';
         }
 
-        index++;
+        selectedIndex++;
 
-        listElem.current.children[index].style.background = '#f7f7f7';
-        listElem.current.children[index].style.color = '#4a4a4a';
+        listElem.current.children[selectedIndex].style.background = '#f7f7f7';
+        listElem.current.children[selectedIndex].style.color = '#4a4a4a';
 
-        if (index > 0) {
-          listElem.current.children[index - 1].style.background = '';
-          listElem.current.children[index - 1].style.color = '';
+        if (selectedIndex > 0) {
+          listElem.current.children[selectedIndex - 1].style.background = '';
+          listElem.current.children[selectedIndex - 1].style.color = '';
         }
         break;
       case 'arrowup':
-        if (index === 0) {
-          index = currentNames.length - 1;
+        if (selectedIndex === 0) {
+          selectedIndex = currentNames.length - 1;
           listElem.current.children[0].style.background = '';
           listElem.current.children[0].style.color = '';
         } else {
-          index = index - 1;
+          selectedIndex = selectedIndex - 1;
         }
-        listElem.current.children[index].style.background = '#f7f7f7';
-        listElem.current.children[index].style.color = '#4a4a4a';
+        listElem.current.children[selectedIndex].style.background = '#f7f7f7';
+        listElem.current.children[selectedIndex].style.color = '#4a4a4a';
 
-        if (index < currentNames.length - 1) {
-          listElem.current.children[index + 1].style.background = '';
-          listElem.current.children[index + 1].style.color = '';
+        if (selectedIndex < currentNames.length - 1) {
+          listElem.current.children[selectedIndex + 1].style.background = '';
+          listElem.current.children[selectedIndex + 1].style.color = '';
         }
         break;
       case 'enter':
-        const selectedName = listElem.current.children[index].innerText;
+        const selectedName = listElem.current.children[selectedIndex].innerText;
         setInput(selectedName);
         inputElem.current.blur();
         break;
@@ -102,7 +101,7 @@ const ContactSelection = () => {
       }
     } else {
       setListExceedsHeight(false);
-      setSelectedIndex(0);
+      selectedIndex = 0;
     }
   }, [inputFocused]);
 
